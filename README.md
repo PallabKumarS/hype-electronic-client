@@ -9,3 +9,6 @@
 * Has jwt authentication
 * Services can be added as you want
 * It is possible to check the progress of your booked services
+
+## Technologies Used Here
+[![My Skills](https://skillicons.dev/icons?i=html,css,react,tailwind,js,firebase)](https://skillicons.dev)
