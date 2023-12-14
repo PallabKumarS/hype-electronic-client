@@ -22,6 +22,7 @@ MotionBtn.propTypes = {
   text: PropTypes.string,
   className: PropTypes.string,
   onClick: PropTypes.func,
+  disabled: PropTypes.func,
   width: PropTypes.number,
 };
 

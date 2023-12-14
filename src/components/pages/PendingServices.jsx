@@ -58,7 +58,7 @@ const PendingServices = () => {
                     <PhotoView src={service.serviceImage}>
                       <img
                         src={service.serviceImage}
-                        className={`max-h-[700px] rounded-lg mx-auto`}
+                        className={`h-2/3 rounded-lg mx-auto`}
                         alt=""
                       />
                     </PhotoView>

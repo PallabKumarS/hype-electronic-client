@@ -69,7 +69,7 @@ const SingleService = () => {
     };
 
     axiosSecure
-      .post(`/bookings?email=${user.email}`, booking)
+      .post(`/bookings?email=${user?.email}`, booking)
       .then((res) => {
         if (res.status === 200) {
           handleAlert("success", "Booked Successfully");
@@ -141,7 +141,7 @@ const SingleService = () => {
           <PhotoView src={serviceImage}>
             <img
               src={serviceImage}
-              className={`max-h-[550px] max-w-[1100px] rounded-lg mx-auto`}
+              className={`h-4/6 w-11/12 rounded-lg mx-auto`}
               alt=""
             />
           </PhotoView>

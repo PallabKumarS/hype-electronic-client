@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import Loader from "../shared/Loader";
 import TypeWriterCustom from "../shared/TypeWriterCustom";
 import { AuthContext } from "../provider/AuthProvider";
@@ -15,8 +15,10 @@ import PendingServices from "./PendingServices";
 import useAxios from "../shared/useAxios";
 import Swal from "sweetalert2";
 import TextColor from "../shared/TextColor";
+import PaymentModal from "../shared/PaymentModal";
 
 const MySchedules = () => {
+  const [selectedRowData, setSelectedRowData] = useState(null);
   const axiosSecure = useAxios();
   const { user, handleAlert } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -29,6 +31,10 @@ const MySchedules = () => {
   if (loading1) {
     return <Spinner></Spinner>;
   }
+
+  const handlePay = (tour) => {
+    setSelectedRowData(tour);
+  };
 
   const handleDelete = (id) => {
     Swal.fire({
@@ -101,7 +107,7 @@ const MySchedules = () => {
                       <PhotoView src={service.serviceImage}>
                         <img
                           src={service.serviceImage}
-                          className={`max-h-[550px] max-w-[1100px] rounded-lg mx-auto`}
+                          className={`h-4/6 w-11/12 rounded-lg mx-auto`}
                           alt=""
                         />
                       </PhotoView>
@@ -153,9 +159,18 @@ const MySchedules = () => {
                             Booked For : {service.date}
                           </p>
                           <br />
-                          <p className="font-semibold text-lg text-lime-500 mb-3">
-                            Status : {TextColor(service.status)}
-                          </p>
+                          <div className="flex justify-center gap-5 items-center">
+                            <p className="font-semibold text-lg text-lime-500 mb-3">
+                              Status : {TextColor(service.status)}
+                            </p>
+                            <button
+                              className="btn bg-lime-600 px-6 rounded-2xl"
+                              onClick={() => handlePay(service)}
+                              disabled={service.status !== "Completed"}
+                            >
+                              Pay
+                            </button>
+                          </div>
                           <br />
                           <form
                             action=""
@@ -202,6 +217,14 @@ const MySchedules = () => {
                 </div>
               </div>
             ))}
+          {selectedRowData && (
+            <PaymentModal
+              setSelectedRowData={setSelectedRowData}
+              rowData={selectedRowData}
+              open={true}
+              refetch={refetch}
+            ></PaymentModal>
+          )}
         </div>
       ) : (
         <div className="mx-auto items-center mb-20">
